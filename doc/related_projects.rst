@@ -183,6 +183,8 @@ and tasks.
 
 - `multiisotonic <https://github.com/alexfields/multiisotonic>`_ Isotonic
   regression on multidimensional features.
+  
+- `seglearn <https://github.com/dmbee/seglearn>`_ Time series and sequence learning using sliding window segmentation.
 
 **Decomposition and clustering**
 
@@ -223,7 +225,8 @@ Statistical learning with Python
 Other packages useful for data analysis and machine learning.
 
 - `Pandas <http://pandas.pydata.org>`_ Tools for working with heterogeneous and
-  columnar data, relational queries, time series and basic statistics.
+  columnar data, relational queries, 
+  series and basic statistics.
 
 - `theano <http://deeplearning.net/software/theano/>`_ A CPU/GPU array
   processing framework geared towards deep learning research.
