@@ -1,9 +1,21 @@
-import numpy as np
 from abc import abstractmethod
 
 from ..utils import check_array, check_consistent_length, check_X_y
 
 class ResamplerMixin(object):
+    '''
+    Abstract base class for resamplers that includes code for checking input data and resampling
+    using indices.
+
+    Derived classes inheriting ``ResamplerMixin`` must implement ``_fit_resample``
+
+    Parameters
+    ----------
+    accept_sparse : boolean
+        accept sparse matrix formats as input to resampler
+    validate : boolean
+        validate data passes to fit_resample
+    '''
 
     def __init__(self, accept_sparse=False, validate=True):
         self.accept_sparse = accept_sparse
