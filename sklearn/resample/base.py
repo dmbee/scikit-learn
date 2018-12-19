@@ -1,11 +1,11 @@
 # Authors: David Burns <d.burns@utoronto.ca>
 # License: BSD 3 clause
 
-from abc import abstractmethod
+from abc import abstractmethod, ABCMeta, ABC
 
 from ..utils import check_array, check_consistent_length, check_X_y
 
-class ResamplerMixin(object):
+class ResamplerMixin(ABC):
     '''
     Abstract base class for resamplers that includes code for checking input data and resampling
     using indices.
@@ -22,14 +22,9 @@ class ResamplerMixin(object):
 
 
     def __init__(self, accept_sparse=False, validate=True):
+        super(ResamplerMixin, self).__init__()
         self.accept_sparse = accept_sparse
         self.validate = validate
-        self._check_params()
-
-    def _check_params(self):
-        ''' validate class parameters '''
-        if not type(self.validate) is bool:
-            raise ValueError("validate parameter must be boolean type")
 
     def fit_resample(self, X, y, props=None, **fit_params):  # gets called by pipeline._fit()
         '''
