@@ -42,6 +42,8 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('preprocessing/tests')
     config.add_subpackage('semi_supervised')
     config.add_subpackage('semi_supervised/tests')
+    config.add_subpackage('semi_supervised')
+    config.add_subpackage('semi_supervised/tests')
 
     # submodules which have their own setup.py
     # leave out "linear_model" and "utils" for now; add them after cblas below
