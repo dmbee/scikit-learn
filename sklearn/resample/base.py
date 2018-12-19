@@ -22,15 +22,12 @@ class ResamplerMixin(object):
 
 
     def __init__(self, accept_sparse=False, validate=True):
-        self.shuffle = shuffle
         self.accept_sparse = accept_sparse
         self.validate = validate
         self._check_params()
 
     def _check_params(self):
         ''' validate class parameters '''
-        if not type(self.shuffle) is bool:
-            raise ValueError("shuffle parameter must be boolean type")
         if not type(self.validate) is bool:
             raise ValueError("validate parameter must be boolean type")
 
