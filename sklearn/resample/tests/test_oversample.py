@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+from collections import Counter
 
 from .. import oversample
 
@@ -14,33 +15,31 @@ def all_oversamplers():
 def test_oversamplers(name, Estimator):
     est = Estimator()
     check_non_sparse(Estimator)
-
     if est.accept_sparse:
         check_sparse(Estimator)
 
 @pytest.mark.parametrize(
-    ['Xsize', 'min_ratio'],
-    [((20), 0.0),
-     ((20), 1.0),
-     ((20), 0.5),
-     ((20,10), 0.0),
-     ((20,10), 1.0),
-     ((20,10), 0.5),
-     ((50), {0:1.0, 1:0.5, 2:1.0})]
+    [('min_ratio')],
+    [(0.0),(1.0),(0.5),({0:1.0, 1:0.5, 2:1.0})]
 )
-def check_non_sparse(Estimator, Xsize, min_ratio):
+def check_non_sparse(Estimator, min_ratio):
+
     est = Estimator(min_ratio)
 
-    X = np.random.rand(*Xsize)
-    y = np.random.randint(0,3,size=Xsize[0])
-    props = {'p': np.random.randint(0,3,size=Xsize[0])}
+    N = 30
+    X = np.random.rand(N)
+    y = np.concatenate([np.full(20, 0), np.full(7, 1), np.full(3, 2)])
+    props = {'p': np.random.rand(N)}
+    counts = dict(Counter(y))
+    Nmax = max(counts.items())
 
     Xr, yr, propsr = est.fit_resample(X, y, props)
-
-
+    countsr = dict(Counter(yr))
 
     if not isinstance(min_ratio, dict):
-        assert np.all([np.count_nonzero(yr == yi) ])
+        assert np.all([countsr[k] >= int(Nmax * min_ratio[k]) for k in counts.keys() & min_ratio.keys()])
+    else:
+        assert np.all([countsr[k] >= int(Nmax * min_ratio) for k in counts.keys() & min_ratio.keys()])
 
 
 

@@ -62,7 +62,7 @@ class OverSamplerBase(ResamplerMixin):
         N_max = counts.most_common()[0][1]
 
         oversampling = {k : int(self.min_ratio[k] * N_max - np.count_nonzero(y == k))
-                for k in self.min_ratio.viewkeys() & counts.viewkeys()}
+                for k in self.min_ratio.keys() & counts.keys()}
 
         return {k : oversampling[k] for k in oversampling if oversampling[k] > 0}
 
